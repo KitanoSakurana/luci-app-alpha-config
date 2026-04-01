@@ -14,8 +14,7 @@ return view.extend({
 		var m, s, o;
 		m = new form.Map('alpha', _('Alpha theme configuration'), _('Here you can set background login and dashboard themes. Chrome is recommended.'));
 
-		s = m.section(form.TypedSection, 'theme', _('Theme configuration'));
-		s.anonymous = true;
+		s = m.section(form.NamedSection, 'theme', 'theme', _('Theme configuration'));
 		o = s.option(form.Value, 'color', _('Primary color'), _('A HEX color (default: #2222359a).'));
 		o.rmempty = false;
 		o.validate = function(section_id, value) {
@@ -35,8 +34,7 @@ return view.extend({
 		o.rmempty = false;
 
 		var bg_path = '/www/luci-static/alpha/background/';
-		s = m.section(form.TypedSection, 'theme' , _('Background configuration'), _('You can upload files such as jpg or png files, and files will be uploaded to <code>%s</code>.').format(bg_path));
-		s.anonymous = true;
+		s = m.section(form.NamedSection, 'theme', 'theme', _('Background configuration'), _('You can upload files such as jpg or png files, and files will be uploaded to <code>%s</code>.').format(bg_path));
 		o = s.option(form.Button, 'login', _('Login'), _('Upload file for login background.'));
 		o.inputstyle = 'action';
 		o.inputtitle = _('Upload');
@@ -72,8 +70,6 @@ return view.extend({
 		o.modalonly = false;
 		o = s.option(form.DummyValue, 'enable', _('Status'));
 		o.modalonly = false;
-		o = s.option(form.DummyValue, 'line', _('Line'));
-		o.modalonly = false;
 		o = s.option(form.DummyValue, 'newtab', _('New tab'));
 		o.modalonly = false;
 		o = s.option(form.DummyValue, 'icon', _('Icon'));
@@ -87,19 +83,14 @@ return view.extend({
 		o = s.option(form.Flag, 'enable', _('Navigation bar'), _('Enable navigation bar.'));
 		o.rmempty = false;
 		o.modalonly = true;
-		o.enabled = _('Enable');
-		o.disabled = _('Disable');
+		o.enabled = 'Enable';
+		o.disabled = 'Disable';
 		o.default = o.enabled;
-		o = s.option(form.Value, 'line', _('Line number'), _('Enter a line number between 1 to 10.'));
-		o.rmempty = false;
-		o.modalonly = true;
-		o.datatype = 'range(1,10)';
-		o.placeholder = '1-10';
 		o = s.option(form.Flag, 'newtab', _('Open in new tab'), _('Enable open links in a new tab.'));
 		o.rmempty = false;
 		o.modalonly = true;
-		o.enabled = _('Yes');
-		o.disabled = _('No');
+		o.enabled = 'Yes';
+		o.disabled = 'No';
 		o = s.option(form.FileUpload, 'icon', _('Icon'), _('Upload PNG file with size 256x256.'));
 		o.rmempty = false;
 		o.modalonly = true;
